@@ -1,4 +1,4 @@
-//META{"name":"AnimatedStatusFixed","source":"https://raw.githubusercontent.com/toluschr/BetterDiscord-Animated-Status/master/Animated_Status.plugin.js","website":"https://github.com/Firemansing/Animated-status-betterdiscord-fixed"}*//
+//META{"name":"AnimatedStatus","source":"https://raw.githubusercontent.com/toluschr/BetterDiscord-Animated-Status/master/Animated_Status.plugin.js","website":"https://github.com/Firemansing/Animated-status-betterdiscord-fixed"}*//
 
 class AnimatedStatus {
 	/* Fonctions BD */
