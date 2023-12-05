@@ -1,11 +1,11 @@
 //META{"name":"AnimatedStatusFixed","source":"https://raw.githubusercontent.com/toluschr/BetterDiscord-Animated-Status/master/Animated_Status.plugin.js","website":"https://github.com/Firemansing/Animated-status-betterdiscord-fixed"}*//
 
 class AnimatedStatus {
-	/* BD functions */
+	/* Fonctions BD */
 	getName() { return "Animated Status Fixed"; }
 	getVersion() { return "V.1.0.1"; }
 	getAuthor() { return "Fire"; }
-	getDescription() { return "New plugin for your status by Fire"; }
+	getDescription() { return "Nouveau plugin pour votre statut par Fire"; }
 
 	SetData(key, value) {
 		BdApi.setData("AnimatedStatus", key, value);
@@ -15,7 +15,7 @@ class AnimatedStatus {
 		return BdApi.getData("AnimatedStatus", key);
 	}
 
-	/* Code related to Animations */
+	/* Code lié aux animations */
 	load() {
 		this.kSpacing = "15px";
 		this.kMinTimeout = 2900;
@@ -26,17 +26,16 @@ class AnimatedStatus {
 		this.randomize = this.GetData("randomize") || false;
 
 		this.modules = this.modules || (() => {
-    let m = [];
-    webpackChunkdiscord_app.push([['AnimatedStatus'], {}, e => {
-        if (e.c) {
-            m = m.concat(Object.values(e.c));
-        }
-    }]);
-    return m;
-})();
+			let m = [];
+			webpackChunkdiscord_app.push([['AnimatedStatus'], {}, e => {
+				if (e.c) {
+					m = m.concat(Object.values(e.c));
+				}
+			}]);
+			return m;
+		})();
 
-
-		// Import Older Config Files
+		// Importer les anciens fichiers de configuration
 		if (typeof this.timeout == "string")
 			this.timeout = parseInt(this.timeout);
 		if (this.animation.length > 0 && Array.isArray(this.animation[0]))
@@ -48,7 +47,7 @@ class AnimatedStatus {
 
 	start() {
 		if (this.animation.length == 0)
-			BdApi.showToast("Animated Status: No status set. Go to Settings>Plugins to set a custom animation!");
+			BdApi.showToast("Animated Status: Aucun statut défini. Allez dans Paramètres>Plugins pour définir une animation personnalisée !");
 		else
 			this.AnimationLoop();
 	}
@@ -87,8 +86,8 @@ class AnimatedStatus {
 	AnimationLoop(i = 0) {
 		i %= this.animation.length;
 
-		// Every loop needs its own shouldContinue variable, otherwise there
-		// is the possibility of multiple loops running simultaneously
+		// Chaque boucle a besoin de sa propre variable shouldContinue, sinon il
+		// y a la possibilité que plusieurs boucles s'exécutent simultanément
 		let shouldContinue = true;
 		this.loop = undefined;
 		this.cancel = () => { shouldContinue = false; };
@@ -115,19 +114,19 @@ class AnimatedStatus {
 		let hbox = GUI.newHBox();
 		hbox.style.marginBottom = this.kSpacing;
 
-		let textWidget = hbox.appendChild(GUI.newInput(text, "Text"));
+		let textWidget = hbox.appendChild(GUI.newInput(text, "Texte"));
 		textWidget.style.marginRight = this.kSpacing;
 
-		let emojiWidget = hbox.appendChild(GUI.newInput(emoji_name, "👍" + (this.currentUser.premiumType ? " / Nitro Name" : "")));
+		let emojiWidget = hbox.appendChild(GUI.newInput(emoji_name, "👍" + (this.currentUser.premiumType ? " / Nom Nitro" : "")));
 		emojiWidget.style.marginRight = this.kSpacing;
 		emojiWidget.style.width = "140px";
 
-		let optNitroIdWidget = hbox.appendChild(GUI.newInput(emoji_id, "Nitro ID"));
+		let optNitroIdWidget = hbox.appendChild(GUI.newInput(emoji_id, "ID Nitro"));
 		if (!this.currentUser.premiumType) optNitroIdWidget.style.display = "none";
 		optNitroIdWidget.style.marginRight = this.kSpacing;
 		optNitroIdWidget.style.width = "140px";
 
-		let optTimeoutWidget = hbox.appendChild(GUI.newNumericInput(timeout, this.kMinTimeout, "Time"));
+		let optTimeoutWidget = hbox.appendChild(GUI.newNumericInput(timeout, this.kMinTimeout, "Temps"));
 		optTimeoutWidget.style.width = "75px";
 
 		hbox.onkeydown = (e) => {
@@ -207,47 +206,47 @@ class AnimatedStatus {
 		});
 	}
 
-	// Settings
+	// Paramètres
 	getSettingsPanel() {
 		let settings = document.createElement("div");
 		settings.style.padding = "10px";
 
 		// timeout
-		settings.appendChild(GUI.newLabel("Step-Duration (3000: 3 seconds, 3500: 3.5 seconds, ...), overwritten by invididual steps"));
+		settings.appendChild(GUI.newLabel("Durée d'étape (3000: 3 secondes, 3500: 3.5 secondes, ...), écrasée par des étapes individuelles"));
 		let timeout = settings.appendChild(GUI.newNumericInput(this.timeout, this.kMinTimeout));
 		timeout.style.marginBottom = this.kSpacing;
 
-		// Animation Container
+		// Conteneur d'animation
 		settings.appendChild(GUI.newLabel("Animation"));
 		let animationContainer = settings.appendChild(document.createElement("div"));
 		animationContainer.marginBottom = this.kSpacing;
 
-		// Editor
+		// Éditeur
 		let edit = animationContainer.appendChild(this.EditorFromJSON(this.animation));
 
 		// Actions
 		let actions = settings.appendChild(GUI.newHBox());
 
-		// Add Step
+		// Ajouter une étape
 		let addStep = actions.appendChild(GUI.setSuggested(GUI.newButton("+", false)));
-		addStep.title = "Add step to end";
+		addStep.title = "Ajouter une étape à la fin";
 		addStep.onclick = () => edit.appendChild(this.NewEditorRow());
 
-		// Del Step
+		// Supprimer une étape
 		let delStep = actions.appendChild(GUI.setDestructive(GUI.newButton("-", false)));
-		delStep.title = "Remove last step";
+		delStep.title = "Supprimer la dernière étape";
 		delStep.style.marginLeft = this.kSpacing;
 		delStep.onclick = () => edit.removeChild(edit.childNodes[edit.childNodes.length - 1]);
 
-		// Move save to the right (XXX make use of flexbox)
+		// Déplacer vers la droite (XXX utilisez flexbox)
 		actions.appendChild(GUI.setExpand(document.createElement("div"), 2));
 
-		// Save
-		let save = actions.appendChild(GUI.newButton("Save"));
+		// Enregistrer
+		let save = actions.appendChild(GUI.newButton("Enregistrer"));
 		GUI.setSuggested(save, true);
 		save.onclick = () => {
 			try {
-				// Set timeout
+				// Définir le délai d'attente
 				this.SetData("randomize", this.randomize);
 				this.SetData("timeout", parseInt(timeout.value));
 				this.SetData("animation", this.JSONFromEditor(edit));
@@ -256,31 +255,31 @@ class AnimatedStatus {
 				return;
 			}
 
-			// Show Toast
-			BdApi.showToast("Settings were saved!", {type: "success"});
+			// Afficher le Toast
+			BdApi.showToast("Les paramètres ont été enregistrés !", {type: "success"});
 
-			// Restart
+			// Redémarrer
 			this.stop();
 			this.load();
 			this.start();
 		};
 
-		// End
+		// Fin
 		return settings;
 	}
 }
 
-/* Status API */
+/* API de statut */
 const Status = {
 	strerror: (req) => {
 		if (req.status  < 400) return undefined;
-		if (req.status == 401) return "Invalid AuthToken";
+		if (req.status == 401) return "AuthToken invalide";
 
-		// Discord _sometimes_ returns an error message
+		// Discord _parfois_ renvoie un message d'erreur
 		let json = JSON.parse(req.response);
 		for (const s of ["errors", "custom_status", "text", "_errors", 0, "message"])
 			if ((json == undefined) || ((json = json[s]) == undefined))
-				return "Unknown error. Please report at github.com/toluschr/BetterDiscord-Animated-Status";
+				return "Erreur inconnue. Veuillez signaler sur github.com/toluschr/BetterDiscord-Animated-Status";
 
 		return json;
 	},
@@ -293,72 +292,72 @@ const Status = {
 		req.onload = () => {
 			let err = Status.strerror(req);
 			if (err != undefined)
-				BdApi.showToast(`Animated Status: Error: ${err}`, {type: "error"});
+				BdApi.showToast(`Animated Status: Erreur : ${err}`, {type: "error"});
 		};
 		if (status === {}) status = null;
 		req.send(JSON.stringify({custom_status: status}));
 	},
 };
 
-// Used to easily style elements like the 'native' discord ones
+// Utilisé pour styliser facilement des éléments comme ceux de Discord 'natifs'
 const GUI = {
-	newInput: (text = "", placeholder = "") => {
-		let input = document.createElement("input");
-		input.className = "inputDefault-3FGxgL input-2g-os5";
-		input.value = String(text);
-		input.placeholder = String(placeholder);
-		return input;
-	},
+    newInput: (texte = "", placeholder = "") => {
+        let input = document.createElement("input");
+        input.className = "inputDefault-3FGxgL input-2g-os5";
+        input.value = String(texte);
+        input.placeholder = String(placeholder);
+        return input;
+    },
 
-	newNumericInput: (text = "", minimum = 0, placeholder = "") => {
-		let out = GUI.newInput(text, placeholder);
-		out.setAttribute("type", "number");
-		out.addEventListener("focusout", () => {
-			if (parseInt(out.value) < minimum) {
-				out.value = String(minimum);
-				BdApi.showToast(`Value must not be lower than ${minimum}`, {type: "error"});
-			}
-		});
-		return out;
-	},
+    newNumericInput: (texte = "", minimum = 0, placeholder = "") => {
+        let out = GUI.newInput(texte, placeholder);
+        out.setAttribute("type", "number");
+        out.addEventListener("focusout", () => {
+            if (parseInt(out.value) < minimum) {
+                out.value = String(minimum);
+                BdApi.showToast(`La valeur ne doit pas être inférieure à ${minimum}`, {type: "error"});
+            }
+        });
+        return out;
+    },
 
-	newLabel: (text = "") => {
-		let label = document.createElement("h5");
-		label.className = "h5-2RwDNl";
-		label.innerText = String(text);
-		return label;
-	},
+    newLabel: (texte = "") => {
+        let label = document.createElement("h5");
+        label.className = "h5-2RwDNl";
+        label.innerText = String(texte);
+        return label;
+    },
 
-	newButton: (text, filled = true) => {
-		let button = document.createElement("button");
-		button.className = "button-f2h6uQ colorBrand-I6CyqQ sizeSmall-wU2dO- grow-2sR_-F";
-		if (filled) button.classList.add("lookFilled-yCfaCM");
-		else button.classList.add("lookOutlined-3yKVGo");
-		button.innerText = String(text);
-		return button;
-	},
+    newButton: (texte, rempli = true) => {
+        let bouton = document.createElement("button");
+        bouton.className = "button-f2h6uQ colorBrand-I6CyqQ sizeSmall-wU2dO- grow-2sR_-F";
+        if (rempli) bouton.classList.add("lookFilled-yCfaCM");
+        else bouton.classList.add("lookOutlined-3yKVGo");
+        bouton.innerText = String(texte);
+        return bouton;
+    },
 
-	newHBox: () => {
-		let hbox = document.createElement("div");
-		hbox.style.display = "flex";
-		hbox.style.flexDirection = "row";
-		return hbox;
-	},
+    newHBox: () => {
+        let hbox = document.createElement("div");
+        hbox.style.display = "flex";
+        hbox.style.flexDirection = "row";
+        return hbox;
+    },
 
-	setExpand: (element, value) => {
-		element.style.flexGrow = value;
-		return element;
-	},
+    setExpand: (element, valeur) => {
+        element.style.flexGrow = valeur;
+        return element;
+    },
 
-	setSuggested: (element, value = true) => {
-		if (value) element.classList.add("colorGreen-3y-Z79");
-		else element.classList.remove("colorGreen-3y-Z79");
-		return element;
-	},
+    setSuggested: (element, valeur = true) => {
+        if (valeur) element.classList.add("colorGreen-3y-Z79");
+        else element.classList.remove("colorGreen-3y-Z79");
+        return element;
+    },
 
-	setDestructive: (element, value = true) => {
-		if (value) element.classList.add("colorRed-rQXKgM");
-		else element.classList.remove("colorRed-rQXKgM");
-		return element;
-	}
+    setDestructive: (element, valeur = true) => {
+        if (valeur) element.classList.add("colorRed-rQXKgM");
+        else element.classList.remove("colorRed-rQXKgM");
+        return element;
+    }
 };
