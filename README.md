@@ -12,7 +12,7 @@
 
 ## Installation
 Installez en utilisant le très pratique [https://github.com/BetterDiscord/Installer] \
-Téléchargez [Animated_Status_Fixed.plugin.js](/Animated_Status_fixed.plugin.js?raw=true) dans le répertoire suivant \
+Téléchargez [Animated_Status_fixed.plugin.js](/Animated_Status_fixed.plugin.js) dans le répertoire suivant \
 Mac: `~/Library/Preferences/BetterDiscord`\
 Windows: `%appdata%\BetterDiscord\plugins`\
 Linux: `~/.config/BetterDiscord/plugins`
