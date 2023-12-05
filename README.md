@@ -2,7 +2,6 @@
 
 * [Installation](#installation)
 * [Utilisation](#utilisation)
-* [Paramètres](#paramètres)
   * [Délai d'attente (Timeout)](#délai-dattente)
   * [L'Éditeur](#léditeur)
   * [Emojis](#emojis)
@@ -22,11 +21,6 @@ Ouvrez Discord, allez dans Paramètres\>Plugins, activez AnimatedStatus et cliqu
 Saisissez les informations requises dans les champs de saisie et cliquez sur le bouton `Enregistrer` (save).
 Cliquez sur `Terminé` (Done) sans enregistrer pour annuler vos paramètres.
 
-## Paramètres
-<table align="center">
-  <td> <img src="Screenshots/Settings_Dark.png"> </td>
-  <td> <img src="Screenshots/Settings_Light.png"> </td>
-</table>
 
 ### Délai d'attente
 La valeur spécifie la durée de chaque étape d'animation en millisecondes.
