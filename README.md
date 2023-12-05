@@ -47,13 +47,13 @@ En raison d'incertitudes sur les noms d'emoji Nitro, le plugin ne supprime actue
 
 #### Emoji Nitro
 - Ouvrez un chat Discord, tapez `\`. \
-  <img src="Screenshots/nitro0.png">
+ 
 - Sélectionnez l'emoji que vous souhaitez inclure dans votre statut à l'aide du sélecteur d'emoji. \
-  <img src="Screenshots/nitro1.png">
+ 
 - Remarquez que le message a changé en `<:nom_de_lemoji:identifiant_emoji>`. Les valeurs à l'intérieur des crochets (nom_de_lemoji et identifiant_emoji) sont les valeurs requises pour le statut. \
-  <img src="Screenshots/nitro2.png">
+ 
 - Modifiez les paramètres en conséquence \
-  <img src="Screenshots/nitro3.png">
+
 
 ### Exemples
 Certaines captures d'écran sont accélérées, afin que le ReadMe paraisse plus attrayant.
